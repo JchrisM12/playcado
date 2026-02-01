@@ -2,30 +2,20 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:playcado/downloads/data/downloads_repository.dart';
-import 'package:playcado/downloads/models/download_item.dart';
+import 'package:playcado/downloads_repository/downloads_repository.dart';
 import 'package:playcado/media/models/media_item.dart';
-import 'package:playcado/media/repos/playback_repository.dart';
 import 'package:playcado/services/logger_service.dart';
-import 'package:playcado/services/media_url/media_url_service.dart';
 
 part 'downloads_event.dart';
 part 'downloads_state.dart';
 
 class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
   final DownloadsRepository _downloadsRepository;
-  final MediaUrlService _urlGenerator;
-  final PlaybackRepository _playbackRepository;
   StreamSubscription? _subscription;
 
-  DownloadsBloc({
-    required DownloadsRepository repository,
-    required MediaUrlService urlGenerator,
-    required PlaybackRepository playbackRepository,
-  }) : _downloadsRepository = repository,
-       _urlGenerator = urlGenerator,
-       _playbackRepository = playbackRepository,
-       super(const DownloadsState()) {
+  DownloadsBloc({required DownloadsRepository repository})
+    : _downloadsRepository = repository,
+      super(const DownloadsState()) {
     on<DownloadsDeleteRequested>(_onDownloadsDeleteRequested);
     on<DownloadsInitialized>(_onDownloadsInitialized);
     on<DownloadsPauseRequested>(_onDownloadsPauseRequested);
@@ -101,28 +91,7 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
     );
 
     try {
-      // 1. Generate Filename
-      final fileName = item.formattedFileName;
-
-      // 2. Get Image URL
-      final imgUrl = _urlGenerator.getImageUrl(item.id);
-
-      // 3. Get Original Download URL
-      final url = _playbackRepository.getDownloadUrl(item.id);
-
-      // 4. Create DownloadItem
-      final downloadItem = DownloadItem(
-        id: item.id,
-        name: fileName,
-        overview: item.overview,
-        imageUrl: imgUrl,
-        type: item.type,
-        downloadUrl: url,
-        localPath: '', // Will be set by repository
-      );
-
-      // 5. Add to repository
-      await _downloadsRepository.addDownload(downloadItem);
+      await _downloadsRepository.addMediaDownload(item);
     } catch (e, s) {
       LoggerService.downloads.severe('Error preparing download', e, s);
     }

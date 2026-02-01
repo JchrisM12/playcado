@@ -127,6 +127,8 @@ class DemoData {
           name: config.name,
           type: MediaItemType.series,
           productionYear: config.year,
+          childCount: config.seasonCount,
+          officialRating: 'TV-14',
           overview: 'An epic series exploring ${config.name}.',
         ),
       )
@@ -308,6 +310,7 @@ class DemoData {
       type: MediaItemType.movie,
       productionYear: year,
       runTimeTicks: ticks,
+      officialRating: 'PG-13',
       overview: overview,
     );
   }

@@ -1,5 +1,5 @@
 import 'package:jellyfin_dart/jellyfin_dart.dart';
-import 'package:playcado/auth/models/server_credentials.dart';
+import 'package:playcado/auth_repository/models/server_credentials.dart';
 
 class JellyfinClientService {
   JellyfinDart? _client;

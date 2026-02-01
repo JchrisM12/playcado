@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:playcado/auth/data/auth_repository.dart';
-import 'package:playcado/auth/models/server_credentials.dart';
-import 'package:playcado/auth/models/user.dart';
+import 'package:playcado/auth_repository/auth_repository.dart';
 import 'package:playcado/core/status_wrapper.dart';
 import 'package:playcado/services/logger_service.dart';
 
@@ -48,15 +46,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(state.copyWith(user: state.user.toLoading()));
     try {
-      final success = await _authRepository.login(
+      final user = await _authRepository.login(
         serverUrl: event.server,
         username: event.username,
         password: event.password,
         rememberCredentials: event.rememberCredentials,
       );
 
-      if (success && _authRepository.client != null) {
-        await _updateUser(emit);
+      if (user != null) {
+        emit(
+          state.copyWith(
+            user: state.user.toSuccess(user),
+            credentials: () => _authRepository.currentCredentials,
+          ),
+        );
         // Refresh accounts list
         add(AuthLoadAccountsRequested());
       } else {
@@ -96,18 +99,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     await _authRepository.logout();
+    const demoUser = User(
+      id: 'demo_user',
+      name: 'Demo Pilot',
+      serverAddress: 'demo.playcado.app',
+      accessToken: 'demo_token',
+    );
+    _authRepository.setDemoUser(demoUser);
     emit(
-      state.copyWith(
-        isDemoMode: true,
-        user: state.user.toSuccess(
-          const User(
-            id: 'demo_user',
-            name: 'Demo Pilot',
-            serverAddress: 'demo.playcado.app',
-            accessToken: 'demo_token',
-          ),
-        ),
-      ),
+      state.copyWith(isDemoMode: true, user: state.user.toSuccess(demoUser)),
     );
   }
 
@@ -125,15 +125,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(state.copyWith(user: state.user.toLoading()));
     try {
-      final success = await _authRepository.login(
+      final user = await _authRepository.login(
         serverUrl: event.credentials.serverName,
         username: event.credentials.username,
         password: event.credentials.password,
         rememberCredentials: true,
       );
 
-      if (success) {
-        await _updateUser(emit);
+      if (user != null) {
+        emit(
+          state.copyWith(
+            user: state.user.toSuccess(user),
+            credentials: () => _authRepository.currentCredentials,
+          ),
+        );
         // Refresh list to move this account to top
         add(AuthLoadAccountsRequested());
       } else {
@@ -141,28 +146,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (e) {
       emit(state.copyWith(user: state.user.toError()));
-    }
-  }
-
-  Future<void> _updateUser(Emitter<AuthState> emit) async {
-    final userResponse = await _authRepository.client!
-        .getUserApi()
-        .getCurrentUser();
-    final currentUser = userResponse.data;
-
-    if (currentUser != null) {
-      final user = User(
-        id: currentUser.id!,
-        name: currentUser.name ?? '',
-        serverAddress: _authRepository.currentCredentials?.serverName ?? '',
-        accessToken: '',
-      );
-      emit(
-        state.copyWith(
-          user: state.user.toSuccess(user),
-          credentials: () => _authRepository.currentCredentials,
-        ),
-      );
     }
   }
 }

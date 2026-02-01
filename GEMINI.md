@@ -10,7 +10,7 @@ Playcado is a high-performance, lightweight Jellyfin client built with Flutter f
 
 *   **Framework:** [Flutter 3.8.0+](https://flutter.dev/)
 *   **State Management:** [flutter_bloc](https://bloclibrary.dev/) (using the BLoC pattern)
-*   **API Client:** [jellyfin_dart](https://github.com/JackChristieDev/jellyfin-dart) (custom fork based on [devaryakjha/jellyfin-dart](https://github.com/devaryakjha/jellyfin-dart)) & [Dio](https://pub.dev/packages/dio)
+*   **API Client:** [jellyfin_dart](https://github.com/JchrisM12/jellyfin-dart) (custom fork based on [devaryakjha/jellyfin-dart](https://github.com/devaryakjha/jellyfin-dart)) & [Dio](https://pub.dev/packages/dio)
 *   **Navigation:** [go_router](https://pub.dev/packages/go_router)
 *   **Video Engine:** [media_kit](https://pub.dev/packages/media_kit) (mpv-based)
 *   **Downloads:** [background_downloader](https://pub.dev/packages/background_downloader)

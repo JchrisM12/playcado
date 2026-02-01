@@ -30,6 +30,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appearance => 'Appearance';
 
   @override
+  String get areYouSureYouWantToStopCasting =>
+      'Are you sure you want to stop casting this media?';
+
+  @override
   String get audio => 'Audio';
 
   @override
@@ -40,6 +44,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get availableDevices => 'Available devices';
+
+  @override
+  String get avocado => 'Avocado';
+
+  @override
+  String get blue => 'Blue';
+
+  @override
+  String get blueGrey => 'Blue grey';
 
   @override
   String get browseLibrary => 'Browse Library';
@@ -54,46 +67,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get castManagement => 'Cast management';
 
   @override
+  String get casting => 'Casting...';
+
+  @override
   String get castingToDevice => 'Casting to device';
-
-  @override
-  String get colorBlue => 'Blue';
-
-  @override
-  String get colorBlueGrey => 'Blue grey';
-
-  @override
-  String get colorCustom => 'Custom';
-
-  @override
-  String get colorDeepOrange => 'Deep orange';
-
-  @override
-  String get colorDeepPurple => 'Deep purple';
-
-  @override
-  String get colorGreen => 'Green';
-
-  @override
-  String get colorIndigo => 'Indigo';
-
-  @override
-  String get colorLightBlue => 'Light blue';
-
-  @override
-  String get colorOrange => 'Orange';
-
-  @override
-  String get colorPink => 'Pink';
-
-  @override
-  String get colorPurple => 'Purple';
-
-  @override
-  String get colorRed => 'Red';
-
-  @override
-  String get colorTeal => 'Teal';
 
   @override
   String get completed => 'Completed';
@@ -119,6 +96,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continueWatching => 'Continue Watching';
 
   @override
+  String get creativeCommonsContent => 'Creative Commons Content';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
+  String get dateAdded => 'Date Added';
+
+  @override
+  String get dateCreated => 'Date Created';
+
+  @override
+  String get deepOrange => 'Deep orange';
+
+  @override
+  String get deepPurple => 'Deep purple';
+
+  @override
   String get delete => 'Delete';
 
   @override
@@ -130,6 +125,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get demoMode => 'Demo Mode';
+
+  @override
   String get devTools => 'Dev Tools';
 
   @override
@@ -137,6 +135,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get downloadCancelled => 'Download cancelled';
+
+  @override
+  String get downloaded => 'Downloaded';
 
   @override
   String downloadSeason(String seasonName) {
@@ -166,6 +167,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get downloads => 'Downloads';
 
   @override
+  String get errorLoadingSeasons => 'Error loading seasons';
+
+  @override
+  String get exitDemoMode => 'Exit Demo Mode';
+
+  @override
   String get exitOfflineMode => 'Exit Offline Mode';
 
   @override
@@ -181,7 +188,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get full => 'Full';
 
   @override
+  String get green => 'Green';
+
+  @override
   String get home => 'Home';
+
+  @override
+  String get indigo => 'Indigo';
+
+  @override
+  String get lightBlue => 'Light blue';
 
   @override
   String get localNetworkAccess => 'Local Network Access';
@@ -190,7 +206,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get loginFailedCheckCredentials =>
+  String get loginFailedPleaseCheckYourCredentials =>
       'Login failed. Please check your credentials and network connection.';
 
   @override
@@ -222,6 +238,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noDownloadsYet => 'No downloads yet';
 
   @override
+  String get noEpisodesFound => 'No episodes found';
+
+  @override
   String noItemsFound(String items) {
     return 'No $items found.';
   }
@@ -248,6 +267,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orAddNewServer => 'Or add new server';
 
   @override
+  String get orange => 'Orange';
+
+  @override
   String get overview => 'Overview';
 
   @override
@@ -258,6 +280,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paused => 'Paused';
+
+  @override
+  String get pink => 'Pink';
 
   @override
   String get play => 'Play';
@@ -273,7 +298,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Please check your connection and try again.';
 
   @override
+  String get premiereDate => 'Premiere Date';
+
+  @override
   String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get purple => 'Purple';
 
   @override
   String get queue => 'Queue';
@@ -286,6 +317,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recentlyAddedTv => 'Recently Added TV';
+
+  @override
+  String get red => 'Red';
+
+  @override
+  String get releaseDate => 'Release Date';
 
   @override
   String get rememberCredentials => 'Remember credentials';
@@ -319,20 +356,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
+  String get skipIntro => 'Skip Intro';
+
+  @override
+  String sortTitle(String title) {
+    return 'Sort $title';
+  }
+
+  @override
   String get stop => 'Stop';
 
   @override
   String get stopCasting => 'Stop casting';
 
   @override
-  String get stopCastingConfirmationMessage =>
-      'Are you sure you want to stop casting this media?';
-
-  @override
-  String get stopCastingConfirmationTitle => 'Stop Casting?';
+  String get stopCastingQuestion => 'Stop Casting?';
 
   @override
   String get subtitles => 'Subtitles';
+
+  @override
+  String get teal => 'Teal';
 
   @override
   String get termsOfService => 'Terms of Service';
@@ -361,6 +405,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upNext => 'Up Next';
+
+  @override
+  String get user => 'User';
 
   @override
   String get username => 'Username';

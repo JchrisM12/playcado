@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:playcado/auth/models/server_credentials.dart';
+import 'package:playcado/auth_repository/auth_repository.dart';
 import 'package:playcado/services/secure_storage_service.dart';
 
 part 'server_management_event.dart';

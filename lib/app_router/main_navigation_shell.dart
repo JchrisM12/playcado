@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playcado/core/extensions.dart';
 import 'package:playcado/downloads/bloc/downloads_bloc.dart';
-import 'package:playcado/video_player/ui/mini_player.dart';
+import 'package:playcado/video_player/views/mini_player.dart';
 import 'package:playcado/widgets/app_drawer.dart';
 
 class MainNavigationShell extends StatelessWidget {

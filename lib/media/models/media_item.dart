@@ -12,6 +12,14 @@ enum MediaItemType {
   episode,
   @JsonValue('Season')
   season,
+  @JsonValue('CollectionFolder')
+  collectionFolder,
+  @JsonValue('Folder')
+  folder,
+  @JsonValue('Photo')
+  photo,
+  @JsonValue('Video')
+  video,
   @JsonValue('Other')
   other;
 
@@ -33,6 +41,14 @@ enum MediaItemType {
         return 'Episode';
       case MediaItemType.season:
         return 'Season';
+      case MediaItemType.collectionFolder:
+        return 'Collection';
+      case MediaItemType.folder:
+        return 'Folder';
+      case MediaItemType.photo:
+        return 'Photo';
+      case MediaItemType.video:
+        return 'Video';
       case MediaItemType.other:
         return 'Other';
     }
@@ -53,6 +69,8 @@ class MediaItem extends Equatable {
   final String? seriesName;
   final String? seasonId;
   final int? runTimeTicks; // Added for download estimation
+  final String? officialRating;
+  final int? childCount;
   final bool isPlayed;
   final String? mediaSourceId;
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -60,6 +78,7 @@ class MediaItem extends Equatable {
   final int? introStartTicks;
   final int? introEndTicks;
   final int? playbackPositionTicks;
+  final String? collectionType;
 
   const MediaItem({
     required this.id,
@@ -74,12 +93,15 @@ class MediaItem extends Equatable {
     this.seriesName,
     this.seasonId,
     this.runTimeTicks,
+    this.officialRating,
+    this.childCount,
     this.isPlayed = false,
     this.mediaSourceId,
     this.people,
     this.introStartTicks,
     this.introEndTicks,
     this.playbackPositionTicks,
+    this.collectionType,
   });
 
   factory MediaItem.fromJson(Map<String, dynamic> json) =>
@@ -100,12 +122,15 @@ class MediaItem extends Equatable {
     String? seriesName,
     String? seasonId,
     int? runTimeTicks,
+    String? officialRating,
+    int? childCount,
     bool? isPlayed,
     String? mediaSourceId,
     List<MediaPerson>? people,
     int? introStartTicks,
     int? introEndTicks,
     int? playbackPositionTicks,
+    String? collectionType,
   }) {
     return MediaItem(
       id: id ?? this.id,
@@ -120,6 +145,8 @@ class MediaItem extends Equatable {
       seriesName: seriesName ?? this.seriesName,
       seasonId: seasonId ?? this.seasonId,
       runTimeTicks: runTimeTicks ?? this.runTimeTicks,
+      officialRating: officialRating ?? this.officialRating,
+      childCount: childCount ?? this.childCount,
       isPlayed: isPlayed ?? this.isPlayed,
       mediaSourceId: mediaSourceId ?? this.mediaSourceId,
       people: people ?? this.people,
@@ -127,6 +154,7 @@ class MediaItem extends Equatable {
       introEndTicks: introEndTicks ?? this.introEndTicks,
       playbackPositionTicks:
           playbackPositionTicks ?? this.playbackPositionTicks,
+      collectionType: collectionType ?? this.collectionType,
     );
   }
 
@@ -150,12 +178,15 @@ class MediaItem extends Equatable {
     seriesName,
     seasonId,
     runTimeTicks,
+    officialRating,
+    childCount,
     isPlayed,
     mediaSourceId,
     people,
     introStartTicks,
     introEndTicks,
     playbackPositionTicks,
+    collectionType,
   ];
 
   /// The movie title for movies
@@ -195,6 +226,24 @@ class MediaItem extends Equatable {
     }
 
     return productionYear;
+  }
+
+  /// Formatted runtime: "1h 42m" or "42m"
+  String? get formattedRuntime {
+    if (runTimeTicks == null) return null;
+    final duration = Duration(microseconds: runTimeTicks! ~/ 10);
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes % 60;
+    if (hours > 0) {
+      return '${hours}h ${minutes}m';
+    }
+    return '${minutes}m';
+  }
+
+  /// Formatted season count: "4 Seasons"
+  String? get formattedSeasonCount {
+    if (type != MediaItemType.series || childCount == null) return null;
+    return childCount == 1 ? '1 Season' : '$childCount Seasons';
   }
 
   /// Generates a consistent hero tag for the item

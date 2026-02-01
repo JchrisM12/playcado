@@ -23,13 +23,13 @@ class PaginatedMediaListBloc
   PaginatedMediaListBloc({required PaginatedMediaFetcher fetcher})
     : _fetcher = fetcher,
       super(const PaginatedMediaListState()) {
-    on<FetchItems>(_onFetchItems);
-    on<LoadMoreItems>(_onLoadMoreItems);
-    on<ChangeSort>(_onChangeSort);
+    on<PaginatedMediaListItemsFetched>(_onFetchItems);
+    on<PaginatedMediaListMoreItemsFetched>(_onLoadMoreItems);
+    on<PaginatedMediaListSortChanged>(_onChangeSort);
   }
 
   Future<void> _onFetchItems(
-    FetchItems event,
+    PaginatedMediaListItemsFetched event,
     Emitter<PaginatedMediaListState> emit,
   ) async {
     emit(state.copyWith(items: state.items.toLoading(), hasReachedMax: false));
@@ -55,7 +55,7 @@ class PaginatedMediaListBloc
   }
 
   Future<void> _onLoadMoreItems(
-    LoadMoreItems event,
+    PaginatedMediaListMoreItemsFetched event,
     Emitter<PaginatedMediaListState> emit,
   ) async {
     if (state.hasReachedMax || state.items.isLoading) return;
@@ -85,7 +85,7 @@ class PaginatedMediaListBloc
   }
 
   Future<void> _onChangeSort(
-    ChangeSort event,
+    PaginatedMediaListSortChanged event,
     Emitter<PaginatedMediaListState> emit,
   ) async {
     if (state.sortBy == event.sortBy && state.sortOrder == event.sortOrder) {

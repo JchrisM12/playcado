@@ -73,6 +73,7 @@ class LibraryRepository {
           ItemFields.mediaSources,
           ItemFields.people,
           ItemFields.chapters,
+          ItemFields.childCount,
         ],
       );
 
@@ -126,7 +127,11 @@ class LibraryRepository {
         recursive: true,
         sortBy: [itemSortBy],
         sortOrder: [order],
-        fields: [ItemFields.overview, ItemFields.mediaSources],
+        fields: [
+          ItemFields.overview,
+          ItemFields.mediaSources,
+          ItemFields.childCount,
+        ],
       );
 
       LoggerService.api.info('Fetched ${items.length} TV shows');
@@ -148,7 +153,11 @@ class LibraryRepository {
         userId: currentUserId,
         limit: 20,
         includeItemTypes: [BaseItemKind.series],
-        fields: [ItemFields.overview, ItemFields.mediaSources],
+        fields: [
+          ItemFields.overview,
+          ItemFields.mediaSources,
+          ItemFields.childCount,
+        ],
       );
 
       LoggerService.api.info('Fetched ${items.length} latest TV shows');
@@ -169,7 +178,11 @@ class LibraryRepository {
         userId: currentUserId,
         limit: 20,
         includeItemTypes: [BaseItemKind.movie],
-        fields: [ItemFields.overview, ItemFields.mediaSources],
+        fields: [
+          ItemFields.overview,
+          ItemFields.mediaSources,
+          ItemFields.childCount,
+        ],
       );
 
       LoggerService.api.info('Fetched ${items.length} latest movies');
@@ -224,6 +237,7 @@ class LibraryRepository {
           ItemFields.mediaSources,
           ItemFields.people,
           ItemFields.chapters,
+          ItemFields.childCount,
         ],
       );
 
@@ -354,6 +368,89 @@ class LibraryRepository {
       return items;
     } catch (e, s) {
       LoggerService.api.severe('Error fetching episodes', e, s);
+      rethrow;
+    }
+  }
+
+  Future<List<MediaItem>> getLibraries() async {
+    try {
+      LoggerService.api.info('Fetching user libraries');
+      final currentUserId = await _dataSource.getCurrentUserId();
+      if (currentUserId == null) throw Exception('Unable to get current user');
+
+      final items = await _dataSource.fetchViews(userId: currentUserId);
+
+      LoggerService.api.info('Fetched ${items.length} libraries');
+      return items;
+    } catch (e, s) {
+      LoggerService.api.severe('Error fetching libraries', e, s);
+      rethrow;
+    }
+  }
+
+  Future<List<MediaItem>> getLibraryItems({
+    required String parentId,
+    String? collectionType,
+    int startIndex = 0,
+    int limit = 20,
+    String sortBy = 'SortName',
+    String sortOrder = 'Ascending',
+  }) async {
+    try {
+      LoggerService.api.info(
+        'Fetching items for library $parentId: Start=$startIndex, Limit=$limit, Sort=$sortBy/$sortOrder',
+      );
+      final currentUserId = await _dataSource.getCurrentUserId();
+      if (currentUserId == null) throw Exception('Unable to get current user');
+
+      final order = sortOrder == 'Ascending'
+          ? SortOrder.ascending
+          : SortOrder.descending;
+
+      ItemSortBy itemSortBy;
+      switch (sortBy) {
+        case 'PremiereDate':
+          itemSortBy = ItemSortBy.premiereDate;
+          break;
+        case 'DateCreated':
+          itemSortBy = ItemSortBy.dateCreated;
+          break;
+        case 'SortName':
+        default:
+          itemSortBy = ItemSortBy.sortName;
+          break;
+      }
+
+      final items = await _dataSource.fetchItems(
+        userId: currentUserId,
+        parentId: parentId,
+        startIndex: startIndex,
+        limit: limit,
+        recursive: true,
+        sortBy: [itemSortBy],
+        sortOrder: [order],
+        fields: [
+          ItemFields.overview,
+          ItemFields.mediaSources,
+          ItemFields.childCount,
+        ],
+      );
+
+      // Filter out redundant folders when browsing a library recursively
+      final filteredItems = items
+          .where(
+            (item) =>
+                item.type != MediaItemType.folder &&
+                item.type != MediaItemType.collectionFolder,
+          )
+          .toList();
+
+      LoggerService.api.info(
+        'Fetched ${items.length} items from library $parentId (filtered to ${filteredItems.length})',
+      );
+      return filteredItems;
+    } catch (e, s) {
+      LoggerService.api.severe('Error fetching library items', e, s);
       rethrow;
     }
   }

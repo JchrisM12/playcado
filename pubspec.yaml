@@ -2,7 +2,7 @@ name: playcado
 description: "A Jellyfin client for iOS and Android"
 publish_to: 'none'
 
-version: 1.0.0+8
+version: 1.0.0+9
 
 environment:
   sdk: ^3.8.0
@@ -26,7 +26,7 @@ dependencies:
   path_provider: ^2.1.2
   jellyfin_dart:
     git:
-      url: https://github.com/JackChristieDev/jellyfin-dart.git
+      url: https://github.com/JchrisM12/jellyfin-dart.git
       ref: v10.11.4
   flutter_secure_storage: ^10.0.0
   logging: ^1.2.0
@@ -66,5 +66,5 @@ sentry:
   upload_debug_symbols: true
   upload_source_maps: true
   project: flutter
-  org: jack-christie
+  org: playcado
   

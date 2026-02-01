@@ -563,7 +563,7 @@ packages:
       path: "."
       ref: "v10.11.4"
       resolved-ref: d00bd5814d233d9227140e3d86a532289eee4996
-      url: "https://github.com/JackChristieDev/jellyfin-dart.git"
+      url: "https://github.com/JchrisM12/jellyfin-dart.git"
     source: git
     version: "0.1.2"
   jni:

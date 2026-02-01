@@ -60,6 +60,17 @@ class JellyfinRemoteDataSource implements MediaRemoteDataSource {
   }
 
   @override
+  Future<List<MediaItem>> fetchViews({required String userId}) async {
+    _checkClient();
+    final response = await _client!.getUserViewsApi().getUserViews(
+      userId: userId,
+    );
+
+    final items = response.data?.items ?? [];
+    return _parseMediaItems(items);
+  }
+
+  @override
   Future<List<MediaItem>> fetchLatestMedia({
     required String userId,
     int? limit,
@@ -249,6 +260,8 @@ class JellyfinRemoteDataSource implements MediaRemoteDataSource {
       seriesName: baseItem.seriesName,
       seasonId: baseItem.seasonId,
       runTimeTicks: baseItem.runTimeTicks,
+      officialRating: baseItem.officialRating,
+      childCount: baseItem.childCount,
       isPlayed: baseItem.userData?.played ?? false,
       mediaSourceId: baseItem.mediaSources?.firstOrNull?.id,
       people: baseItem.people
@@ -263,6 +276,7 @@ class JellyfinRemoteDataSource implements MediaRemoteDataSource {
       introStartTicks: introStart,
       introEndTicks: introEnd,
       playbackPositionTicks: baseItem.userData?.playbackPositionTicks,
+      collectionType: baseItem.collectionType?.value,
     );
   }
 }

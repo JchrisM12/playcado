@@ -17,6 +17,8 @@ abstract class MediaRemoteDataSource {
     String? parentId,
   });
 
+  Future<List<MediaItem>> fetchViews({required String userId});
+
   Future<List<MediaItem>> fetchLatestMedia({
     required String userId,
     int? limit,

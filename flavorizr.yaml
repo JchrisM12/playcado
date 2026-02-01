@@ -2,7 +2,7 @@ app:
   android:
     flavorDimensions: "flavor"
   ios:
-    bundleId: "com.jackchristie.playcado"
+    bundleId: "com.playcado.app"
     
 instructions:
  - assets:download
@@ -23,23 +23,23 @@ flavors:
     app:
       name: "Playcado Dev"
     android:
-      applicationId: "com.jackchristie.playcado.dev"
+      applicationId: "com.playcado.app.dev"
     ios:
-      bundleId: "com.jackchristie.playcado.dev"
+      bundleId: "com.playcado.app.dev"
 
   staging:
     app:
       name: "Playcado Staging"
     android:
-      applicationId: "com.jackchristie.playcado.staging"
+      applicationId: "com.playcado.app.staging"
     ios:
-      bundleId: "com.jackchristie.playcado.staging"
+      bundleId: "com.playcado.app.staging"
 
   prod:
     app:
       name: "Playcado"
     android:
-      applicationId: "com.jackchristie.playcado"
+      applicationId: "com.playcado.app"
     ios:
-      bundleId: "com.jackchristie.playcado"
+      bundleId: "com.playcado.app"
       

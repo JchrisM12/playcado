@@ -16,7 +16,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.jackchristie.playcado"
+    namespace = "com.playcado.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.jackchristie.playcado"
+        applicationId = "com.playcado.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -51,17 +51,17 @@ android {
     productFlavors {
         create("dev") {
             dimension = "flavor"
-            applicationId = "com.jackchristie.playcado.dev"
+            applicationId = "com.playcado.app.dev"
             resValue("string", "app_name", "Playcado Dev")
         }
         create("staging") {
             dimension = "flavor"
-            applicationId = "com.jackchristie.playcado.staging"
+            applicationId = "com.playcado.app.staging"
             resValue("string", "app_name", "Playcado Staging")
         }
         create("prod") {
             dimension = "flavor"
-            applicationId = "com.jackchristie.playcado"
+            applicationId = "com.playcado.app"
             resValue("string", "app_name", "Playcado")
         }
     }

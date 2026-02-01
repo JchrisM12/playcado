@@ -136,6 +136,12 @@ abstract class AppLocalizations {
   /// **'Appearance'**
   String get appearance;
 
+  /// No description provided for @areYouSureYouWantToStopCasting.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to stop casting this media?'**
+  String get areYouSureYouWantToStopCasting;
+
   /// No description provided for @audio.
   ///
   /// In en, this message translates to:
@@ -159,6 +165,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Available devices'**
   String get availableDevices;
+
+  /// No description provided for @avocado.
+  ///
+  /// In en, this message translates to:
+  /// **'Avocado'**
+  String get avocado;
+
+  /// No description provided for @blue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get blue;
+
+  /// No description provided for @blueGrey.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue grey'**
+  String get blueGrey;
 
   /// No description provided for @browseLibrary.
   ///
@@ -184,89 +208,17 @@ abstract class AppLocalizations {
   /// **'Cast management'**
   String get castManagement;
 
+  /// No description provided for @casting.
+  ///
+  /// In en, this message translates to:
+  /// **'Casting...'**
+  String get casting;
+
   /// No description provided for @castingToDevice.
   ///
   /// In en, this message translates to:
   /// **'Casting to device'**
   String get castingToDevice;
-
-  /// No description provided for @colorBlue.
-  ///
-  /// In en, this message translates to:
-  /// **'Blue'**
-  String get colorBlue;
-
-  /// No description provided for @colorBlueGrey.
-  ///
-  /// In en, this message translates to:
-  /// **'Blue grey'**
-  String get colorBlueGrey;
-
-  /// No description provided for @colorCustom.
-  ///
-  /// In en, this message translates to:
-  /// **'Custom'**
-  String get colorCustom;
-
-  /// No description provided for @colorDeepOrange.
-  ///
-  /// In en, this message translates to:
-  /// **'Deep orange'**
-  String get colorDeepOrange;
-
-  /// No description provided for @colorDeepPurple.
-  ///
-  /// In en, this message translates to:
-  /// **'Deep purple'**
-  String get colorDeepPurple;
-
-  /// No description provided for @colorGreen.
-  ///
-  /// In en, this message translates to:
-  /// **'Green'**
-  String get colorGreen;
-
-  /// No description provided for @colorIndigo.
-  ///
-  /// In en, this message translates to:
-  /// **'Indigo'**
-  String get colorIndigo;
-
-  /// No description provided for @colorLightBlue.
-  ///
-  /// In en, this message translates to:
-  /// **'Light blue'**
-  String get colorLightBlue;
-
-  /// No description provided for @colorOrange.
-  ///
-  /// In en, this message translates to:
-  /// **'Orange'**
-  String get colorOrange;
-
-  /// No description provided for @colorPink.
-  ///
-  /// In en, this message translates to:
-  /// **'Pink'**
-  String get colorPink;
-
-  /// No description provided for @colorPurple.
-  ///
-  /// In en, this message translates to:
-  /// **'Purple'**
-  String get colorPurple;
-
-  /// No description provided for @colorRed.
-  ///
-  /// In en, this message translates to:
-  /// **'Red'**
-  String get colorRed;
-
-  /// No description provided for @colorTeal.
-  ///
-  /// In en, this message translates to:
-  /// **'Teal'**
-  String get colorTeal;
 
   /// No description provided for @completed.
   ///
@@ -304,6 +256,42 @@ abstract class AppLocalizations {
   /// **'Continue Watching'**
   String get continueWatching;
 
+  /// No description provided for @creativeCommonsContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Creative Commons Content'**
+  String get creativeCommonsContent;
+
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
+
+  /// No description provided for @dateAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Added'**
+  String get dateAdded;
+
+  /// No description provided for @dateCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Created'**
+  String get dateCreated;
+
+  /// No description provided for @deepOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep orange'**
+  String get deepOrange;
+
+  /// No description provided for @deepPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep purple'**
+  String get deepPurple;
+
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:
@@ -322,6 +310,12 @@ abstract class AppLocalizations {
   /// **'Deleted {name}'**
   String deletedItem(String name);
 
+  /// No description provided for @demoMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Demo Mode'**
+  String get demoMode;
+
   /// No description provided for @devTools.
   ///
   /// In en, this message translates to:
@@ -339,6 +333,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download cancelled'**
   String get downloadCancelled;
+
+  /// No description provided for @downloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded'**
+  String get downloaded;
 
   /// No description provided for @downloadSeason.
   ///
@@ -388,6 +388,18 @@ abstract class AppLocalizations {
   /// **'Downloads'**
   String get downloads;
 
+  /// No description provided for @errorLoadingSeasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading seasons'**
+  String get errorLoadingSeasons;
+
+  /// No description provided for @exitDemoMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Demo Mode'**
+  String get exitDemoMode;
+
   /// No description provided for @exitOfflineMode.
   ///
   /// In en, this message translates to:
@@ -418,11 +430,29 @@ abstract class AppLocalizations {
   /// **'Full'**
   String get full;
 
+  /// No description provided for @green.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get green;
+
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @indigo.
+  ///
+  /// In en, this message translates to:
+  /// **'Indigo'**
+  String get indigo;
+
+  /// No description provided for @lightBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Light blue'**
+  String get lightBlue;
 
   /// No description provided for @localNetworkAccess.
   ///
@@ -436,11 +466,11 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get login;
 
-  /// No description provided for @loginFailedCheckCredentials.
+  /// No description provided for @loginFailedPleaseCheckYourCredentials.
   ///
   /// In en, this message translates to:
   /// **'Login failed. Please check your credentials and network connection.'**
-  String get loginFailedCheckCredentials;
+  String get loginFailedPleaseCheckYourCredentials;
 
   /// No description provided for @manageServers.
   ///
@@ -496,6 +526,12 @@ abstract class AppLocalizations {
   /// **'No downloads yet'**
   String get noDownloadsYet;
 
+  /// No description provided for @noEpisodesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No episodes found'**
+  String get noEpisodesFound;
+
   /// No description provided for @noItemsFound.
   ///
   /// In en, this message translates to:
@@ -544,6 +580,12 @@ abstract class AppLocalizations {
   /// **'Or add new server'**
   String get orAddNewServer;
 
+  /// No description provided for @orange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get orange;
+
   /// No description provided for @overview.
   ///
   /// In en, this message translates to:
@@ -567,6 +609,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Paused'**
   String get paused;
+
+  /// No description provided for @pink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get pink;
 
   /// No description provided for @play.
   ///
@@ -592,11 +640,23 @@ abstract class AppLocalizations {
   /// **'Please check your connection and try again.'**
   String get pleaseCheckYourConnectionAndTryAgain;
 
+  /// No description provided for @premiereDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Premiere Date'**
+  String get premiereDate;
+
   /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacyPolicy;
+
+  /// No description provided for @purple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get purple;
 
   /// No description provided for @queue.
   ///
@@ -621,6 +681,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recently Added TV'**
   String get recentlyAddedTv;
+
+  /// No description provided for @red.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get red;
+
+  /// No description provided for @releaseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Release Date'**
+  String get releaseDate;
 
   /// No description provided for @rememberCredentials.
   ///
@@ -682,6 +754,18 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
+  /// No description provided for @skipIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Intro'**
+  String get skipIntro;
+
+  /// No description provided for @sortTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort {title}'**
+  String sortTitle(String title);
+
   /// No description provided for @stop.
   ///
   /// In en, this message translates to:
@@ -694,23 +778,23 @@ abstract class AppLocalizations {
   /// **'Stop casting'**
   String get stopCasting;
 
-  /// No description provided for @stopCastingConfirmationMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to stop casting this media?'**
-  String get stopCastingConfirmationMessage;
-
-  /// No description provided for @stopCastingConfirmationTitle.
+  /// No description provided for @stopCastingQuestion.
   ///
   /// In en, this message translates to:
   /// **'Stop Casting?'**
-  String get stopCastingConfirmationTitle;
+  String get stopCastingQuestion;
 
   /// No description provided for @subtitles.
   ///
   /// In en, this message translates to:
   /// **'Subtitles'**
   String get subtitles;
+
+  /// No description provided for @teal.
+  ///
+  /// In en, this message translates to:
+  /// **'Teal'**
+  String get teal;
 
   /// No description provided for @termsOfService.
   ///
@@ -765,6 +849,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Up Next'**
   String get upNext;
+
+  /// No description provided for @user.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get user;
 
   /// No description provided for @username.
   ///

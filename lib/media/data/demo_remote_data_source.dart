@@ -59,6 +59,30 @@ class DemoRemoteDataSource implements MediaRemoteDataSource {
   }
 
   @override
+  Future<List<MediaItem>> fetchViews({required String userId}) async {
+    return [
+      const MediaItem(
+        id: 'movies_library',
+        name: 'Movies',
+        type: MediaItemType.collectionFolder,
+        collectionType: 'movies',
+      ),
+      const MediaItem(
+        id: 'tv_library',
+        name: 'TV Shows',
+        type: MediaItemType.collectionFolder,
+        collectionType: 'tvshows',
+      ),
+      const MediaItem(
+        id: 'home_videos_library',
+        name: 'Home Videos',
+        type: MediaItemType.collectionFolder,
+        collectionType: 'homevideos',
+      ),
+    ];
+  }
+
+  @override
   Future<List<MediaItem>> fetchLatestMedia({
     required String userId,
     int? limit,

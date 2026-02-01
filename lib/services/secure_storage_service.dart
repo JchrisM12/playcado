@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:playcado/auth/models/server_credentials.dart';
+import 'package:playcado/auth_repository/auth_repository.dart';
 import 'package:playcado/services/logger_service.dart';
 
 class SecureStorageService {

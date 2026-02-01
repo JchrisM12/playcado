@@ -1,4 +1,4 @@
-package com.jackchristie.playcado
+package com.playcado.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -19,11 +19,14 @@ MediaItem _$MediaItemFromJson(Map<String, dynamic> json) => MediaItem(
   seriesName: json['seriesName'] as String?,
   seasonId: json['seasonId'] as String?,
   runTimeTicks: (json['runTimeTicks'] as num?)?.toInt(),
+  officialRating: json['officialRating'] as String?,
+  childCount: (json['childCount'] as num?)?.toInt(),
   isPlayed: json['isPlayed'] as bool? ?? false,
   mediaSourceId: json['mediaSourceId'] as String?,
   introStartTicks: (json['introStartTicks'] as num?)?.toInt(),
   introEndTicks: (json['introEndTicks'] as num?)?.toInt(),
   playbackPositionTicks: (json['playbackPositionTicks'] as num?)?.toInt(),
+  collectionType: json['collectionType'] as String?,
 );
 
 Map<String, dynamic> _$MediaItemToJson(MediaItem instance) => <String, dynamic>{
@@ -39,11 +42,14 @@ Map<String, dynamic> _$MediaItemToJson(MediaItem instance) => <String, dynamic>{
   'seriesName': instance.seriesName,
   'seasonId': instance.seasonId,
   'runTimeTicks': instance.runTimeTicks,
+  'officialRating': instance.officialRating,
+  'childCount': instance.childCount,
   'isPlayed': instance.isPlayed,
   'mediaSourceId': instance.mediaSourceId,
   'introStartTicks': instance.introStartTicks,
   'introEndTicks': instance.introEndTicks,
   'playbackPositionTicks': instance.playbackPositionTicks,
+  'collectionType': instance.collectionType,
 };
 
 const _$MediaItemTypeEnumMap = {
@@ -51,5 +57,9 @@ const _$MediaItemTypeEnumMap = {
   MediaItemType.series: 'Series',
   MediaItemType.episode: 'Episode',
   MediaItemType.season: 'Season',
+  MediaItemType.collectionFolder: 'CollectionFolder',
+  MediaItemType.folder: 'Folder',
+  MediaItemType.photo: 'Photo',
+  MediaItemType.video: 'Video',
   MediaItemType.other: 'Other',
 };

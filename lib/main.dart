@@ -3,15 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:playcado/app_router/app_router.dart';
 import 'package:playcado/auth/bloc/auth_bloc.dart';
-import 'package:playcado/auth/data/auth_repository.dart';
+import 'package:playcado/auth_repository/auth_repository.dart';
 import 'package:playcado/cast/services/cast_service.dart';
 import 'package:playcado/core/app_flavor.dart';
 import 'package:playcado/core/bootstrap.dart';
 import 'package:playcado/core/extensions.dart';
 import 'package:playcado/core/secrets.dart';
 import 'package:playcado/downloads/bloc/downloads_bloc.dart';
-import 'package:playcado/downloads/data/downloads_repository.dart';
+import 'package:playcado/downloads_repository/downloads_repository.dart';
 import 'package:playcado/l10n/app_localizations.dart';
+import 'package:playcado/libraries/bloc/libraries_bloc.dart';
 import 'package:playcado/media/data/demo_remote_data_source.dart';
 import 'package:playcado/media/data/jellyfin_remote_data_source.dart';
 import 'package:playcado/media/repos/library_repository.dart';
@@ -73,9 +74,6 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<AuthRepository>.value(value: config.authRepository),
         RepositoryProvider<CastService>.value(value: config.castService),
-        RepositoryProvider<DownloadsRepository>.value(
-          value: config.downloadsRepository,
-        ),
         RepositoryProvider<PlayerService>.value(value: config.playerService),
         RepositoryProvider<SecureStorageService>.value(
           value: config.secureStorageService,
@@ -108,7 +106,8 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<AuthBloc, AuthState>(
           buildWhen: (previous, current) =>
-              previous.isDemoMode != current.isDemoMode,
+              previous.isDemoMode != current.isDemoMode ||
+              previous.user.value?.id != current.user.value?.id,
           builder: (context, state) {
             final mediaUrlService = state.isDemoMode
                 ? DemoUrlService()
@@ -121,7 +120,9 @@ class MyApp extends StatelessWidget {
                   );
 
             return MultiRepositoryProvider(
-              key: ValueKey(state.isDemoMode),
+              // The key includes the user ID to ensure all media blocs/repos are
+              // reset and re-fetched when a new user logs in.
+              key: ValueKey('${state.isDemoMode}_${state.user.value?.id}'),
               providers: [
                 RepositoryProvider<LibraryRepository>(
                   create: (context) =>
@@ -137,6 +138,11 @@ class MyApp extends StatelessWidget {
                   create: (context) =>
                       SearchRepository(dataSource: remoteDataSource),
                 ),
+                RepositoryProvider<DownloadsRepository>(
+                  create: (context) =>
+                      DownloadsRepository(urlGenerator: mediaUrlService),
+                  dispose: (repo) => repo.dispose(),
+                ),
                 RepositoryProvider<MediaUrlService>.value(
                   value: mediaUrlService,
                 ),
@@ -146,8 +152,6 @@ class MyApp extends StatelessWidget {
                   BlocProvider(
                     create: (context) => DownloadsBloc(
                       repository: context.read<DownloadsRepository>(),
-                      urlGenerator: context.read<MediaUrlService>(),
-                      playbackRepository: context.read<PlaybackRepository>(),
                     ),
                   ),
                   BlocProvider(
@@ -157,6 +161,11 @@ class MyApp extends StatelessWidget {
                       playerService: context.read<PlayerService>(),
                       castService: context.read<CastService>(),
                     ),
+                  ),
+                  BlocProvider(
+                    create: (context) => LibrariesBloc(
+                      libraryRepository: context.read<LibraryRepository>(),
+                    )..add(LibrariesLibariesFetched()),
                   ),
                 ],
                 child: PlaycadoApp(

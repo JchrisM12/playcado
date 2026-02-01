@@ -5,19 +5,20 @@ import 'package:go_router/go_router.dart';
 import 'package:playcado/app_router/main_navigation_shell.dart';
 import 'package:playcado/auth/bloc/auth_bloc.dart';
 
-import 'package:playcado/devtools/ui/dev_tools_screen.dart';
-import 'package:playcado/downloads/ui/downloads_screen.dart';
-import 'package:playcado/home/ui/home_screen.dart';
+import 'package:playcado/devtools/views/dev_tools_screen.dart';
+import 'package:playcado/downloads/views/downloads_screen.dart';
+import 'package:playcado/home/views/home_screen.dart';
+import 'package:playcado/libraries/views/library_browse_screen.dart';
 import 'package:playcado/media/models/media_item.dart';
-import 'package:playcado/media_details/ui/media_details_screen.dart';
-import 'package:playcado/movies/ui/movies_screen.dart';
+import 'package:playcado/media_details/views/media_details_screen.dart';
+import 'package:playcado/movies/views/movies_screen.dart';
 import 'package:playcado/onboarding/bloc/onboarding_cubit.dart';
-import 'package:playcado/onboarding/ui/onboarding_screen.dart';
-import 'package:playcado/search/ui/search_screen.dart';
-import 'package:playcado/server_management/ui/server_management_screen.dart';
-import 'package:playcado/settings/ui/settings_screen.dart';
-import 'package:playcado/tv/ui/tv_shows_screen.dart';
-import 'package:playcado/video_player/ui/fullscreen_player_screen.dart';
+import 'package:playcado/onboarding/views/onboarding_screen.dart';
+import 'package:playcado/search/views/search_screen.dart';
+import 'package:playcado/server_management/views/server_management_screen.dart';
+import 'package:playcado/settings/views/settings_screen.dart';
+import 'package:playcado/tv/views/tv_shows_screen.dart';
+import 'package:playcado/video_player/views/fullscreen_player_screen.dart';
 
 class AppRouter {
   final AuthBloc authBloc;
@@ -34,6 +35,7 @@ class AppRouter {
   static const settingsPath = '/settings';
   static const videoPlayerPath = '/player';
   static const searchPath = '/search';
+  static const libraryPath = '/library';
 
   AppRouter({required this.authBloc, required this.onboardingCubit});
 
@@ -129,6 +131,13 @@ class AppRouter {
                   return FadeTransition(opacity: animation, child: child);
                 },
           );
+        },
+      ),
+      GoRoute(
+        path: libraryPath,
+        builder: (context, state) {
+          final item = state.extra as MediaItem;
+          return LibraryBrowseScreen(library: item);
         },
       ),
     ],

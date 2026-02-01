@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chrome_cast/flutter_chrome_cast.dart';
 import 'package:playcado/cast/models/cast_item.dart';
 import 'package:playcado/cast/services/cast_service.dart';
-import 'package:playcado/downloads/data/downloads_repository.dart';
+import 'package:playcado/downloads_repository/downloads_repository.dart';
 import 'package:playcado/media/models/media_item.dart';
 import 'package:playcado/services/preferences_service.dart';
 import 'package:playcado/services/secure_storage_service.dart';

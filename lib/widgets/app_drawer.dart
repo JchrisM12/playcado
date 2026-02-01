@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playcado/app_router/app_router.dart';
 import 'package:playcado/auth/bloc/auth_bloc.dart';
-import 'package:playcado/auth/models/server_credentials.dart';
+import 'package:playcado/auth_repository/auth_repository.dart';
 import 'package:playcado/core/extensions.dart';
 import 'package:playcado/l10n/app_localizations.dart';
+import 'package:playcado/libraries/bloc/libraries_bloc.dart';
+import 'package:playcado/media/models/media_item.dart';
 import 'package:playcado/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +26,16 @@ class AppDrawer extends StatelessWidget {
             b.state.credentials,
           ),
         );
+    final librariesState = context.watch<LibrariesBloc>().state;
+    final libraries = librariesState.libraries.value ?? [];
+
+    // Identify if standard libraries exist on the server
+    final hasMovies = libraries.any(
+      (l) => l.collectionType?.toLowerCase() == 'movies',
+    );
+    final hasTv = libraries.any(
+      (l) => l.collectionType?.toLowerCase() == 'tvshows',
+    );
 
     final username = credentials?.username ?? 'User';
     final server = credentials?.serverName ?? '';
@@ -67,18 +79,50 @@ class AppDrawer extends StatelessWidget {
                       isSelected: false,
                       onTap: () => _navigate(context, AppRouter.basePath),
                     ),
-                    _DrawerItem(
-                      icon: Icons.movie_rounded,
-                      label: context.l10n.movies,
-                      isSelected: false,
-                      onTap: () => _navigate(context, AppRouter.moviesPath),
-                    ),
-                    _DrawerItem(
-                      icon: Icons.tv_rounded,
-                      label: context.l10n.tvShows,
-                      isSelected: false,
-                      onTap: () => _navigate(context, AppRouter.tvPath),
-                    ),
+                    if (hasMovies)
+                      _DrawerItem(
+                        icon: Icons.movie_rounded,
+                        label: context.l10n.movies,
+                        isSelected: false,
+                        onTap: () => _navigate(context, AppRouter.moviesPath),
+                      ),
+                    if (hasTv)
+                      _DrawerItem(
+                        icon: Icons.tv_rounded,
+                        label: context.l10n.tvShows,
+                        isSelected: false,
+                        onTap: () => _navigate(context, AppRouter.tvPath),
+                      ),
+                    ...libraries
+                        .where((lib) {
+                          // Exclude items already shown in the primary navigation
+                          final type = lib.collectionType?.toLowerCase();
+                          return type != 'movies' && type != 'tvshows';
+                        })
+                        .map((lib) {
+                          IconData icon;
+                          final type = lib.collectionType?.toLowerCase();
+                          if (type == 'homevideos') {
+                            icon = Icons.video_library_rounded;
+                          } else if (type == 'music') {
+                            icon = Icons.music_note_rounded;
+                          } else if (type == 'photos') {
+                            icon = Icons.photo_library_rounded;
+                          } else {
+                            icon = Icons.folder_rounded;
+                          }
+
+                          return _DrawerItem(
+                            icon: icon,
+                            label: lib.name,
+                            isSelected: false,
+                            onTap: () => _navigate(
+                              context,
+                              AppRouter.libraryPath,
+                              extra: lib,
+                            ),
+                          );
+                        }),
                   ],
                   _DrawerItem(
                     icon: Icons.download_rounded,
@@ -86,22 +130,6 @@ class AppDrawer extends StatelessWidget {
                     isSelected: false,
                     onTap: () => _navigate(context, AppRouter.downloadsPath),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(
-                  //     vertical: 12,
-                  //     horizontal: 8,
-                  //   ),
-                  //   child: Divider(
-                  //     height: 1,
-                  //     color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-                  //   ),
-                  // ),
-                  // _DrawerItem(
-                  //   icon: Icons.settings_rounded,
-                  //   label: context.l10n.settings,
-                  //   isSelected: false,
-                  //   onTap: () => _navigate(context, AppRouter.settingsPath),
-                  // ),
                   if (kDebugMode && isLoggedIn && !isOfflineMode) ...[
                     _DrawerItem(
                       icon: Icons.developer_mode,
@@ -128,8 +156,7 @@ class AppDrawer extends StatelessWidget {
                       children: [
                         _LegalLink(
                           label: context.l10n.privacyPolicy,
-                          url:
-                              'https://jackchristiedev.github.io/playcado-privacy/',
+                          url: 'https://JchrisM12.github.io/playcado-privacy/',
                         ),
                         Text(
                           '•',
@@ -140,8 +167,7 @@ class AppDrawer extends StatelessWidget {
                         ),
                         _LegalLink(
                           label: context.l10n.termsOfService,
-                          url:
-                              'https://jackchristiedev.github.io/playcado-terms/',
+                          url: 'https://JchrisM12.github.io/playcado-terms/',
                         ),
                       ],
                     ),
@@ -271,7 +297,7 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  void _navigate(BuildContext context, String path) {
+  void _navigate(BuildContext context, String path, {MediaItem? extra}) {
     Navigator.of(context).pop();
 
     final corePaths = [
@@ -283,6 +309,8 @@ class AppDrawer extends StatelessWidget {
 
     if (corePaths.contains(path)) {
       context.go(path);
+    } else if (extra != null) {
+      context.push(path, extra: extra);
     } else {
       context.push(path);
     }

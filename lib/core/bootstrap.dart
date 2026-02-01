@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_kit/media_kit.dart';
-import 'package:playcado/auth/data/auth_repository.dart';
-import 'package:playcado/auth/models/user.dart';
+import 'package:playcado/auth_repository/auth_repository.dart';
 import 'package:playcado/cast/services/cast_service.dart';
 import 'package:playcado/core/app_bloc_observer.dart';
-import 'package:playcado/downloads/data/downloads_repository.dart';
 import 'package:playcado/media/data/jellyfin_remote_data_source.dart';
 import 'package:playcado/media/repos/library_repository.dart';
 import 'package:playcado/media/repos/playback_repository.dart';
@@ -26,7 +24,6 @@ class BootstrapConfig {
   final LibraryRepository libraryRepository;
   final PlaybackRepository playbackRepository;
   final SearchRepository searchRepository;
-  final DownloadsRepository downloadsRepository;
   final MediaUrlService mediaUrlService;
   final CastService castService;
   final PlayerService playerService;
@@ -42,7 +39,6 @@ class BootstrapConfig {
     required this.libraryRepository,
     required this.playbackRepository,
     required this.searchRepository,
-    required this.downloadsRepository,
     required this.mediaUrlService,
     required this.castService,
     required this.playerService,
@@ -92,7 +88,6 @@ Future<BootstrapConfig> bootstrap() async {
   );
   final searchRepository = SearchRepository(dataSource: remoteDataSource);
 
-  final downloadsRepository = DownloadsRepository();
   final castService = CastService();
   final playerService = PlayerService();
   final preferencesService = PreferencesService();
@@ -117,7 +112,6 @@ Future<BootstrapConfig> bootstrap() async {
     libraryRepository: libraryRepository,
     playbackRepository: playbackRepository,
     searchRepository: searchRepository,
-    downloadsRepository: downloadsRepository,
     mediaUrlService: mediaUrlService,
     castService: castService,
     playerService: playerService,
@@ -148,31 +142,9 @@ Future<User?> _attemptAutoLogin({
   }
 
   try {
-    final hasSession = await authRepository.tryAutoLogin();
-    if (!hasSession) {
-      return null;
-    }
-
-    // Fetch minimal user data for the AuthBloc state
-    final userDto = await jellyfinClientService.client!
-        .getUserApi()
-        .getCurrentUser();
-
-    if (userDto.data == null) {
-      return null;
-    }
-
-    final creds = jellyfinClientService.credentials!;
-    final user = User(
-      id: userDto.data!.id!,
-      name: userDto.data!.name ?? '',
-      serverAddress: creds.serverName,
-      accessToken: jellyfinClientService.accessToken!,
-    );
-
-    // Initialize services that require authentication
+    final user = await authRepository.tryAutoLogin();
+    if (user == null) return null;
     LoggerService.auth.info('Auto-login pre-check successful for ${user.name}');
-
     return user;
   } catch (e, s) {
     LoggerService.auth.warning('Pre-run auto-login check failed', e, s);

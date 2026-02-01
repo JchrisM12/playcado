@@ -2,7 +2,7 @@
 
 Playcado is a Jellyfin client built with Flutter.
 
-<img src="https://github.com/JackChristieDev/playcado-dev/blob/main/demo/demo.gif" width="250" />      <img src="https://github.com/JackChristieDev/playcado-dev/blob/main/demo/demo 2.gif" width="250" />
+<img src="https://github.com/JchrisM12/playcado-dev/blob/main/demo/demo.gif" width="250" />      <img src="https://github.com/JchrisM12/playcado-dev/blob/main/demo/demo 2.gif" width="250" />
 
 
 ## Features
@@ -41,7 +41,7 @@ Playcado is a Jellyfin client built with Flutter.
 * State Management: Bloc (flutter_bloc)
 * Navigation: go_router
 * Video Engine: media_kit (mpv-based)
-* API Client: [jellyfin_dart](https://github.com/JackChristieDev/jellyfin-dart) (Custom fork based on [devaryakjha/jellyfin-dart](https://github.com/devaryakjha/jellyfin-dart))
+* API Client: [jellyfin_dart](https://github.com/JchrisM12/jellyfin-dart) (Custom fork based on [devaryakjha/jellyfin-dart](https://github.com/devaryakjha/jellyfin-dart))
 * Persistence: [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage) & custom JSON-based `PreferencesService`
 * Downloads: [background_downloader](https://pub.dev/packages/background_downloader)
 * Casting: [flutter_chrome_cast](https://pub.dev/packages/flutter_chrome_cast)
@@ -52,7 +52,7 @@ Playcado is a Jellyfin client built with Flutter.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/JackChristieDev/playcado.git
+   git clone https://github.com/JchrisM12/playcado.git
    cd playcado
    ```
 
